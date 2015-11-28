@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load product_app_tags %}
+
+
+
+{% block body %}
+    
+
+    {% if product %}
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 well">
+        <div class="text-center">
+            {% if product.inventory_on_hand > 0 %}
+                <h1>{{ product.name }}</h1>
+                <h2 class="text-info">${{ product.price }} per<span id="quantityTickets"></span> ticket<span id="plural"></span>.</h2>
+                <p></p>
+        </div>
+        <div class="">
+                {% if form %}
+                    <form action="" method="post">{% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary pull-right" type="submit">submit</button>
+                    <a href="{% url "index" %}" class="btn btn-default pull-right" type="submit" style="margin-right: 5px;">cancel</a>
+                    </form>
+                {% endif %}
+            {% else %}
+                <p>Oh snap, this is so embarrassing, we seem to be out of this product.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+{% endblock %}

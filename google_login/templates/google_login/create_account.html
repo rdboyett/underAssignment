@@ -1,0 +1,90 @@
+{% extends "google_login/google_base.html" %}
+{% load staticfiles %}
+
+    
+		
+{% block body %}
+		      <form id="submit-registration-form" class="form-login" action="{% url 'google_login.views.submitRegistration' %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+		        <h2 class="form-login-heading">create account</h2>
+		        <div class="login-wrap">
+		            <div class="login-social-link centered">
+		            <p>Create an account with your social network</p>
+			      <div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+				  <a href="{% url "google_login.views.noPopAuth" %}"><div class="btn btn-danger btn-block"><i class="fa fa-google-plus fa-lg"></i>&nbsp;&nbsp; Sign in with Google</div></a>
+				</div>
+			      </div>
+		            </div>
+			    <hr>
+			    <div id="no-google-display" class="row">
+			      <div class="col-xs-12">
+				<input id="teacher_or_student" type="hidden" name="teacherStudent" value="" required>
+				<input name="username" type="text" class="form-control" placeholder="Username" autofocus minlength="6" maxlength="40" required noSpace="true">
+				<br>
+				<input id="email-input" type="email" name="email" placeholder="Email" required="true" class="form-control placeholder-no-fix">
+				<br>
+				<input name="password" type="password" class="form-control" placeholder="Password" minlength="6" maxlength="40" required noSpace="true">
+				<label class="checkbox">
+				    <span class="pull-right">
+					<a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
+		    
+				    </span>
+				</label>
+				<button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> Create</button>
+			      </div>
+			    </div>
+		            <hr>
+		            
+		
+		        </div>
+		      </form>
+		
+		          <!-- Modal -->
+		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Forgot Password ?</h4>
+		                      </div>
+		                      <div class="modal-body">
+					<div class="row">
+					  <div class="col-xs-12">
+					    <form id="reset-password-form" class="style-form" action="{% url 'google_login.views.submitPasswordForgot' %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+					      
+					      <div class="form-group">
+						<label class="col-xs-12 text-center">Enter your e-mail address below to reset your password.</label>
+						<div class="col-sm-8 col-sm-offset-2">
+						  <input class="form-control" type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix" required email="true">
+						</div>
+					      </div>
+						
+					    </form>
+					  </div>
+					</div>
+		                      </div>
+		                      <div class="modal-footer">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+		                          <button class="btn btn-theme" type="submit" form="reset-password-form">Submit</button>
+		                      </div>
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
+		
+	  	
+	  	</div>
+	  </div>
+{% endblock %}
+          
+  
+          
+          
+          
+{% block extraScript %}
+    <script>
+	var doesUsernameExistURL = "{% url 'google_login.views.checkUsername' %}";
+	var doesEmailExistURL = "{% url 'google_login.views.doesEmailExist' %}";
+    </script>
+    <script src="{% static "google_login/js/create_account.js" %}"></script>
+{% endblock %}

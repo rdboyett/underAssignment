@@ -1,0 +1,68 @@
+{% extends "google_login/google_base.html" %}
+{% load staticfiles %}
+
+    
+		
+{% block body %}
+		  {% if verify %}
+		      <form id="submit-registration-form" class="form-login" action="{% url 'google_login.views.accountVerifyCreate' %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+		        <h2 class="form-login-heading">verify account</h2>
+		        <div class="login-wrap">
+		            <div class="login-social-link centered">
+		            <p>Create an account with your social network</p>
+			      <div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+				  <a href="{% url "google_login.views.noPopAuth" %}"><div class="btn btn-danger btn-block"><i class="fa fa-google-plus fa-lg"></i>&nbsp;&nbsp; Sign in with Google</div></a>
+				</div>
+			      </div>
+		            </div>
+			    <hr>
+                            <input type="hidden" name="verifyID" value="{{ verify.id }}" required>
+		            <input name="username" type="text" class="form-control" placeholder="Username" autofocus minlength="6" maxlength="40" required noSpace="true" value="{{ verify.username }}">
+		            <br>
+                            <input id="email-input" type="email" name="email" placeholder="Email Optional" class="form-control placeholder-no-fix" value="{{ verify.email }}">
+                            <br>
+		            <input id="password1" name="password1" type="password" class="form-control" placeholder="Password" minlength="6" maxlength="40" required noSpace="true">
+		            <br>
+		            <input name="password2" type="password" class="form-control" placeholder="Confirm Password" required>
+		            <br>
+		            <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> Verify</button>
+		            <hr>
+		            <div class="login-social-link centered">
+			      <div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+				  <a href="{% url "google_login.views.createAccount" %}"><div class="btn btn-danger btn-theme">Create Another Account</div></a>
+				</div>
+			      </div>
+		            </div>
+		            
+		
+		        </div>
+		      </form>
+		{% elif error %}
+		      <form id="submit-registration-form" class="form-login" action="{% url 'google_login.views.submitRegistration' %}" enctype='multipart/form-data' method="post" autocomplete="off">{% csrf_token %}
+		        <h2 class="form-login-heading">error</h2>
+		        <div class="login-wrap">
+		            <div class="login-social-link centered">
+		            <p>There was an error whith your verification link.</p>
+			      <div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+				  <a href="{% url "google_login.views.createAccount" %}"><div class="btn btn-danger btn-theme">Create An Account</div></a>
+				</div>
+			      </div>
+		            </div>
+		        </div>
+		      </form>
+		{% endif %}
+	  	
+{% endblock %}
+          
+{% block extraScript %}
+    <script src="{% static "google_login/js/create_account_verification.js" %}"></script>
+
+    <script>
+	var doesUsernameExistURL = "{% url 'google_login.views.checkUsername' %}";
+	var doesEmailExistURL = "{% url 'google_login.views.doesEmailExist' %}";
+    </script>
+
+{% endblock %}
