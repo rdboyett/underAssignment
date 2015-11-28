@@ -9,7 +9,7 @@ from models import PurchaseHistory
 
 
 class PurchaseHistoryForm(forms.Form):
-    name = forms.CharField(label='Full Name', max_length=65, min_length=3, widget=forms.TextInput(attrs={'class': 'form-control', 'required':'true'}))
+    name = forms.CharField(label='Full Name', max_length=65, min_length=3, widget=forms.TextInput(attrs={'class': 'form-control', 'required':'true', 'minlength':3}))
     email = forms.EmailField(max_length=100, widget=forms.EmailInput(attrs={'class': 'form-control', 'required':'true'}))
     price = forms.FloatField(widget=forms.HiddenInput, initial=0.0)
     phone = forms.CharField(max_length=16, widget=forms.TextInput(attrs={'class': 'form-control', 'phoneUS':'true', 'required':'true'}), validators=[RegexValidator(r'(\d{3})\D*(\d{3})\D*(\d{4})\D*(\d*)$', 'Enter a valid phone number.')])

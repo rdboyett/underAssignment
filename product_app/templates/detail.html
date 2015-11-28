@@ -12,6 +12,7 @@
                 <h1>{{ product.name }}</h1>
                 <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur odit voluptatum deserunt natus architecto inventore necessitatibus aliquid pariatur harum odio.</div>
                 <h2><span>$</span>{{ product.price }} <span>per ticket</span></h2>
+                <h5>There are {{ product.inventory_on_hand }} ticket{{ product.inventory_on_hand|pluralize }} available.</h5>
                 <p></p>
                 <a href="{% url "purchase" productID=product.id %}" class="btn btn-primary">Purchase</a>
             </div>

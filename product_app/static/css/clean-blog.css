@@ -419,7 +419,9 @@ body {
   border-radius: 10px;
 }
 
-
+.error{
+  color: red;
+}
 
 
 

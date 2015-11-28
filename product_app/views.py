@@ -720,21 +720,18 @@ def purchase(request, productID=False):
                     price = float(content['product']['price']),
                     phone = phone,
                 )
+                data = {'success':'true'}
+            
             else:
                 #error
-                pass
+                data = {'error':'Sorry, we are having problems with our system.  Please try to submit your purchase again.  If this problem continues, please contact us at (800)555-5555.'}
                 
+            return HttpResponse(json.dumps(data))
             
-            
-            
-            
-            #log.info(confirmation_code)
-            return HttpResponse("response")
         else:
             url = "http://careers.undercovertourist.com/assignment/1/products/"+str(productID)+"/"
             product = getProduct(url)
             
-            form = PurchaseHistoryForm
             args = {
                 "user":request.user,
                 "form":form,
@@ -774,7 +771,8 @@ def purchase(request, productID=False):
 
     
 
-
+def success(request, purchaseID=False):
+    return HttpResponse('success')
 
 
 

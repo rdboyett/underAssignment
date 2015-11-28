@@ -3,16 +3,22 @@
 {% load product_app_tags %}
 
 
+{% block extraHead %}
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js"></script>
+    <script src="{% static "js/jquery.form.js" %}"></script>
+{%endblock%}
 
 {% block body %}
     
 
     {% if product %}
-    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 well">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 well">
         <div class="text-center">
             {% if product.inventory_on_hand > 0 %}
                 <h1>{{ product.name }}</h1>
-                <h2 class="text-info">${{ product.price }} per<span id="quantityTickets"></span> ticket<span id="plural"></span>.</h2>
+                <h2 class="text-info">$<span id="currentPrice">{{ product.price }}</span> per<span id="quantityTickets"></span> ticket<span id="plural"></span>.</h2>
+                <h5>There are <span id="ticketsLeft">{{ product.inventory_on_hand }}</span> <span id="pluralizeTicket">ticket{{ product.inventory_on_hand|pluralize }}</span> available.</h5>
                 <p></p>
         </div>
         <div class="">
@@ -31,3 +37,15 @@
     {% endif %}
     
 {% endblock %}
+
+{% block extraScript %}
+    <script src="{% static "js/jquery.mask.min.js" %}"></script>
+    <script>
+        var maxQuantity = parseInt({{ product.inventory_on_hand }});
+        $("#id_quantity").attr('max',maxQuantity);
+    </script>
+    <script src="{% static "js/purchase.js" %}"></script>
+{% endblock %}
+            
+            
+            

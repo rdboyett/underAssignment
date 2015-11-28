@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^detail/(?P<productID>(\d+))/$', views.detail, name='detail'),
     url(r'^purchase/(?P<productID>(\d+))/$', views.purchase, name='purchase'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^success/(?P<purchaseID>(\d+))/$', views.success, name='success'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
