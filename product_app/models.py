@@ -17,3 +17,6 @@ class PurchaseHistory(models.Model):
       
 
 
+    def total_price(self):
+        return "%.2f" % float(float(self.price)*self.quantityTickets)
+    

@@ -2,7 +2,6 @@ import re
 
 from django import forms
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import User
 
 from models import PurchaseHistory
 
@@ -22,8 +21,3 @@ class PurchaseHistoryForm(forms.Form):
         return '(%s) %s-%s' % (phoneData[0], phoneData[1], phoneData[2])
     
     
-    
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ["username", "email", "password"]
