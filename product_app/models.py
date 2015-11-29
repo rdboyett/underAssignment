@@ -17,5 +17,3 @@ class PurchaseHistory(models.Model):
       
 
 
-
-admin.site.register(PurchaseHistory)
