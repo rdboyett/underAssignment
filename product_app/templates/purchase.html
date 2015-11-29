@@ -7,6 +7,7 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/additional-methods.min.js"></script>
     <script src="{% static "js/jquery.form.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/font-awesome-animation.min.css" %}">
 {%endblock%}
 
 {% block body %}
@@ -17,15 +18,15 @@
         <div class="text-center">
             {% if product.inventory_on_hand > 0 %}
                 <h1>{{ product.name }}</h1>
-                <h2 class="text-info">$<span id="currentPrice">{{ product.price }}</span> per<span id="quantityTickets"></span> ticket<span id="plural"></span>.</h2>
+                <h2 class="text-info">$<span class="currentPrice">{{ product.price }}</span> per<span class="quantityTickets"></span> ticket<span class="plural"></span>.</h2>
                 <h5>There are <span id="ticketsLeft">{{ product.inventory_on_hand }}</span> <span id="pluralizeTicket">ticket{{ product.inventory_on_hand|pluralize }}</span> available.</h5>
                 <p></p>
         </div>
         <div class="">
                 {% if form %}
-                    <form action="" method="post">{% csrf_token %}
+                    <form id="purchase-form" action="" method="post">{% csrf_token %}
                     {{ form.as_p }}
-                    <button class="btn btn-primary pull-right" type="submit">submit</button>
+                    <button id="submitCheckBtn" class="btn btn-primary pull-right" type="button">submit</button>
                     <a href="{% url "index" %}" class="btn btn-default pull-right" type="submit" style="margin-right: 5px;">cancel</a>
                     </form>
                 {% endif %}
@@ -34,9 +35,41 @@
             {% endif %}
         </div>
     </div>
+    
+    <div id="shade"></div>
+    <div id="spinnerHolder">
+        <div class="spinner fa fa-circle-o fa-5x faa-burst animated"></div>
+    </div>
     {% endif %}
     
 {% endblock %}
+
+
+
+{% block extraModal %}
+<div class="modal fade" id="orderConfirm-modal" tabindex="-1" role="dialog" aria-labelledby="orderConfirmLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Order Confirmation</h4>
+      </div>
+      <div class="modal-body text-center">
+        <h1>{{ product.name }}</h1>
+        <h3 class="text-info">You are ordering <span class="quantityTickets">1</span> ticket<span class="plural"></span> for a total value of</h3>
+        <h1 class="text-danger">$<span class="currentPrice">{{ product.price }}</span>.</h1>
+            <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" form="purchase-form" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
 
 {% block extraScript %}
     <script src="{% static "js/jquery.mask.min.js" %}"></script>

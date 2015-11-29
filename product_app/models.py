@@ -3,11 +3,13 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 
 class PurchaseHistory(models.Model):
-    fullName = models.CharField(max_length=65)
-    confirmation_code = models.CharField(max_length=10)
+    confirmation_code = models.CharField(max_length=20)
     name = models.CharField(max_length=100)
     price = models.FloatField()
+    fullName = models.CharField(max_length=65)
+    email = models.EmailField(max_length=100)
     phone = models.CharField(max_length=15, blank=True)
+    quantityTickets = models.IntegerField(blank=True, null=True)
     
     
     def __unicode__(self):

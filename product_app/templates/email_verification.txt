@@ -1,0 +1,13 @@
+
+{% load product_app_tags %}
+
+My Travel Shop Purchase Confirmation
+
+Thank you, {{ purchaseHistory.fullName|title }} for your purchase of {{ purchaseHistory.quantityTickets }} ticket{{ purchaseHistory.quantityTickets|pluralize }} for the "{{ purchaseHistory.name }}" package in the amount of
+${{ purchaseHistory.price|totalPrice:purchaseHistory.quantityTickets }}.
+                                         
+Please retain your confirmation code of {{ purchaseHistory.confirmation_code }} for future inquires.
+                                         
+
+Robert Boyett
+My Travel Shop Inc.

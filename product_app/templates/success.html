@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load product_app_tags %}
+
+
+
+{% block body %}
+    
+    {% if purchaseHistory %}
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3 well">
+        <div class="text-center">
+            <h1 class="text-primary">
+                Thank you, {{ purchaseHistory.fullName|title }} for your purchase of <span class="text-danger">{{ purchaseHistory.quantityTickets }}</span> ticket{{ purchaseHistory.quantityTickets|pluralize }} for the <span class="text-danger">"{{ purchaseHistory.name }}"</span> package in the amount of
+                <span class="text-danger">${{ purchaseHistory.price|totalPrice:purchaseHistory.quantityTickets }}</span>.
+            </h1>
+            <h3>Please retain your confirmation code of {{ purchaseHistory.confirmation_code }} for future inquires.</h3>
+            <p></p>
+            <a href="{% url "index" %}" class="btn btn-primary">Continue Shopping <i class="fa fa-shopping-cart"></i></a>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
