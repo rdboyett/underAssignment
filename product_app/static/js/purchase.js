@@ -31,6 +31,7 @@ $(document).ready(function(){
         }
     });
     
+    
     $('#purchase-form').ajaxForm({
         beforeSubmit:  function(){
             $("#shade").fadeIn(300);
